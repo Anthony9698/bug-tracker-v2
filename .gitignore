@@ -1,0 +1,81 @@
+server/HELP.md
+server/.gradle
+server/build/
+server/!gradle/wrapper/gradle-wrapper.jar
+server/!**/src/main/**/build/
+server/!**/src/test/**/build/
+
+### STS ###
+server/.apt_generated
+server/.classpath
+server/.factorypath
+server/.project
+server/.settings
+server/.springBeans
+server/.sts4-cache
+server/bin/
+server/!**/src/main/**/bin/
+server/!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+server/.idea
+server/*.iws
+server/*.iml
+server/*.ipr
+server/out/
+server/!**/src/main/**/out/
+server/!**/src/test/**/out/
+
+### NetBeans ###
+server/nbproject/private/
+server/nbbuild/
+server/dist/
+server/nbdist/
+server/.nb-gradle/
+
+# ==============================================================================> app git ignore starts here
+
+# compiled output
+app/dist
+app/tmp
+app/out-tsc
+# Only exists if Bazel was run
+app/bazel-out
+
+# dependencies
+app/node_modules
+
+# profiling files
+app/chrome-profiler-events*.json
+
+# IDEs and editors
+app/.idea
+app/.project
+app/.classpath
+app/.c9/
+app/*.launch
+app/.settings/
+app/*.sublime-workspace
+
+# IDE - VSCode
+*/.vscode/*
+*/!.vscode/settings.json
+*/!.vscode/tasks.json
+*/!.vscode/launch.json
+*/!.vscode/extensions.json
+*/.history/*
+
+# misc
+*/.sass-cache
+*/connect.lock
+*/coverage
+*/libpeerconnection.log
+app/npm-debug.log
+app/yarn-error.log
+app/testem.log
+app/typings
+
+# System Files
+app/.DS_Store
+app/Thumbs.db
+
