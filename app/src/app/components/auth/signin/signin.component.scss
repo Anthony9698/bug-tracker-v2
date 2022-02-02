@@ -1,0 +1,29 @@
+.signIn {
+  width: 400px;
+  border: 1px solid var(--bs-secondary);
+  border-radius: 8px;
+  padding: 48px;
+  margin: 32px auto;
+
+  .form-group {
+    margin-bottom: 8px;
+    input {
+      height: 3rem;
+      font-size: 1rem;
+    }
+  }
+
+  h5 {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    margin: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  button {
+    font-size: 1rem;
+    border-radius: 0;
+    margin-top: 0.5rem;
+  }
+}
