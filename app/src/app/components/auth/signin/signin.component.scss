@@ -1,7 +1,7 @@
 .signIn {
   width: 400px;
-  border: 1px solid var(--bs-secondary);
-  border-radius: 8px;
+  border: 2px solid var(--bs-secondary);
+  border-radius: 16px;
   padding: 48px;
   margin: 32px auto;
 
@@ -25,5 +25,23 @@
     font-size: 1rem;
     border-radius: 0;
     margin-top: 0.5rem;
+  }
+
+  .bottom-links {
+    margin-top: 1.5rem;
+    div {
+      width: 100%;
+      text-align: center;
+      padding: 4px 17.6px;
+      font-size: 1rem;
+    }
+  }
+  a {
+    color: var(--bs-blue);
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
