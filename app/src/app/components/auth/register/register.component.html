@@ -1,0 +1,51 @@
+<div class="container">
+  <form [formGroup]="registerForm">
+    <h5 class="display-6 text-center">New Account</h5>
+    <div class="form-group">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="First Name"
+        formControlName="firstName"
+      />
+    </div>
+    <div class="form-group">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Last Name"
+        formControlName="lastName"
+      />
+    </div>
+    <div class="form-group">
+      <input
+        type="email"
+        class="form-control"
+        placeholder="Email"
+        formControlName="email"
+      />
+    </div>
+    <div class="form-group">
+      <input
+        type="password"
+        class="form-control"
+        placeholder="Password"
+        formControlName="password"
+      />
+    </div>
+    <div class="form-group">
+      <input
+        type="password"
+        class="form-control"
+        placeholder="Confirm Password"
+        formControlName="confirmPassword"
+      />
+    </div>
+    <button class="btn btn-success w-100 btn-block">Register</button>
+    <div class="bottom-links">
+      <div>
+        Already have an account? <a [routerLink]="['/signin']">Sign in</a>
+      </div>
+    </div>
+  </form>
+</div>

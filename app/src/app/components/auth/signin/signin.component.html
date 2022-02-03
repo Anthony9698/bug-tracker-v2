@@ -1,5 +1,5 @@
 <div class="container">
-  <form class="signIn">
+  <form>
     <h5 class="display-6 text-center">Bug Tracker V2</h5>
     <div class="form-group">
       <input type="email" class="form-control" placeholder="Email" />
@@ -10,7 +10,7 @@
     <button class="btn btn-primary w-100 btn-block">Sign In</button>
     <div class="bottom-links">
       <div>Forgot your <a>password?</a></div>
-      <div>New user? <a>Create an Account</a></div>
+      <div>New user? <a [routerLink]="['/register']">Create an Account</a></div>
       <div>Sign in as a <a>Demo User</a></div>
     </div>
   </form>
