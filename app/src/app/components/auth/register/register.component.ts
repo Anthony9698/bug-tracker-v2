@@ -10,8 +10,11 @@ import { User } from 'src/app/models/user/user';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   newUser: User;
+  confirmPassword: string;
 
-  constructor() {}
+  constructor() {
+    this.newUser = new User('', '', '', '');
+  }
 
   ngOnInit(): void {
     this.registerForm = new FormGroup({
@@ -19,11 +22,7 @@ export class RegisterComponent implements OnInit {
       lastName: new FormControl(this.newUser.lastName),
       email: new FormControl(this.newUser.email),
       password: new FormControl(this.newUser.password),
-      confirmPassword: new FormControl(this.newUser.password),
+      confirmPassword: new FormControl(this.confirmPassword),
     });
-  }
-
-  get firstName() {
-    return this.registerForm.get('firstName');
   }
 }

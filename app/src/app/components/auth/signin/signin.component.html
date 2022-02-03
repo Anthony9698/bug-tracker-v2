@@ -1,15 +1,28 @@
 <div class="container">
-  <form>
+  <form [formGroup]="signForm" (ngSubmit)="onSubmit()">
     <h5 class="display-6 text-center">Bug Tracker V2</h5>
     <div class="form-group">
-      <input type="email" class="form-control" placeholder="Email" />
+      <input
+        type="email"
+        autocomplete="email"
+        class="form-control"
+        placeholder="Email"
+        formControlName="email"
+      />
     </div>
     <div class="form-group">
-      <input type="password" class="form-control" placeholder="Password" />
+      <input
+        type="password"
+        autocomplete="current-password"
+        class="form-control"
+        placeholder="Password"
+        formControlName="password"
+      />
     </div>
     <button class="btn btn-primary w-100 btn-block">Sign In</button>
     <div class="bottom-links">
       <div>Forgot your <a>password?</a></div>
+      <!-- <div>New user? <a routerLink="/register">Create an Account</a></div> -->
       <div>New user? <a [routerLink]="['/register']">Create an Account</a></div>
       <div>Sign in as a <a>Demo User</a></div>
     </div>

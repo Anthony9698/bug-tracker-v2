@@ -43,6 +43,7 @@ form {
     text-decoration: none;
 
     &:hover {
+      color: var(--bs-blue);
       text-decoration: underline;
     }
   }
