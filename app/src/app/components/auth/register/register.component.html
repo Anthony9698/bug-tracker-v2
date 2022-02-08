@@ -7,16 +7,19 @@
         autocomplete="name"
         class="form-control"
         [ngClass]="{
-          'is-invalid': submitted && registerForm.get('firstName')?.errors,
-          'is-valid':
-            registerForm.dirty && !registerForm.get('firstName')?.errors
+          'is-invalid':
+            (firstName?.dirty || firstName?.touched) && firstName?.errors,
+          'is-valid': firstName?.dirty && !firstName?.errors
         }"
         placeholder="First Name"
         formControlName="firstName"
       />
       <div
         class="invalid-feedback"
-        *ngIf="submitted && registerForm.get('firstName')?.errors?.required"
+        *ngIf="
+          (firstName?.dirty || firstName?.touched) &&
+          firstName?.errors?.required
+        "
       >
         This field is required
       </div>
@@ -26,38 +29,91 @@
         type="text"
         autocomplete="additional-name"
         class="form-control"
+        [ngClass]="{
+          'is-invalid':
+            (lastName?.dirty || lastName?.touched) && lastName?.errors,
+          'is-valid': lastName?.dirty && !lastName?.errors
+        }"
         placeholder="Last Name"
         formControlName="lastName"
       />
+      <div
+        class="invalid-feedback"
+        *ngIf="
+          (lastName?.dirty || lastName?.touched) && lastName?.errors?.required
+        "
+      >
+        This field is required
+      </div>
     </div>
     <div class="form-group">
       <input
         type="email"
         autocomplete="email"
         class="form-control"
+        [ngClass]="{
+          'is-invalid': (email?.dirty || email?.touched) && email?.errors,
+          'is-valid': email?.dirty && !email?.errors
+        }"
         placeholder="Email"
         formControlName="email"
       />
+      <div class="invalid-feedback" *ngIf="email?.dirty || email?.touched">
+        <div *ngIf="email?.errors?.required">This field is required</div>
+        <div *ngIf="email?.errors?.email">Invalid email address</div>
+      </div>
     </div>
-    <div class="form-group" formGroupName="passwordsForm">
-      <input
-        type="password"
-        autocomplete="new-password"
-        class="form-control"
-        placeholder="Password"
-        formControlName="password"
-      />
+    <div formGroupName="passwordsForm">
+      <div class="form-group">
+        <input
+          type="password"
+          autocomplete="new-password"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid':
+              (password?.dirty || password?.touched) && password?.errors,
+            'is-valid': password?.dirty && !password?.errors
+          }"
+          placeholder="Password"
+          formControlName="password"
+        />
+      </div>
+      <div class="form-group">
+        <input
+          type="password"
+          autocomplete="new-password"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid':
+              (confirmPassword?.dirty || confirmPassword?.touched) &&
+              confirmPassword?.errors?.passwordsMatch,
+            'is-valid': confirmPassword?.dirty && !confirmPassword?.errors
+          }"
+          placeholder="Confirm Password"
+          formControlName="confirmPassword"
+        />
+        <div
+          class="invalid-feedback d-block"
+          *ngIf="password?.dirty || password?.touched"
+        >
+          <div *ngIf="password?.errors?.required">Password is required</div>
+          <div *ngIf="password?.errors?.minlength">
+            Password must be at least 8 characters
+          </div>
+          <div *ngIf="password?.errors?.maxlength">
+            Password cannot be longer than 25 characters
+          </div>
+        </div>
+        <div
+          class="invalid-feedback"
+          *ngIf="confirmPassword?.dirty || confirmPassword?.touched"
+        >
+          <div *ngIf="confirmPassword?.errors?.passwordsMatch">
+            Passwords must match
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="form-group" formGroupName="passwordsForm">
-      <input
-        type="password"
-        autocomplete="new-password"
-        class="form-control"
-        placeholder="Confirm Password"
-        formControlName="confirmPassword"
-      />
-    </div>
-
     <button class="btn btn-success w-100 btn-block">Register</button>
     <div class="bottom-links">
       <div>

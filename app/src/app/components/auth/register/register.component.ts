@@ -16,12 +16,10 @@ import { User } from 'src/app/models/user/user';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   newUser: User;
-  confirmPassword: string;
   submitted: boolean;
 
   constructor(private formBuilder: FormBuilder) {
     this.newUser = new User('', '', '', '');
-    this.confirmPassword = '';
     this.submitted = false;
   }
 
@@ -40,27 +38,36 @@ export class RegisterComponent implements OnInit {
               Validators.maxLength(25),
             ],
           ],
-          confirmPassword: [
-            this.confirmPassword,
-            [
-              Validators.required,
-              Validators.minLength(8),
-              Validators.maxLength(25),
-            ],
-          ],
+          confirmPassword: ['', [Validators.required]],
         },
         {
           validators: this.passwordsMatch('password', 'confirmPassword'),
         }
       ),
     });
-    console.log(this.submitted);
   }
 
-  onSubmit() {
-    this.submitted = true;
-    console.log(this.registerForm.get('firstName'));
+  get firstName(): AbstractControl | null {
+    return this.registerForm.get('firstName');
   }
+
+  get lastName(): AbstractControl | null {
+    return this.registerForm.get('lastName');
+  }
+
+  get email(): AbstractControl | null {
+    return this.registerForm.get('email');
+  }
+
+  get password(): AbstractControl | null {
+    return this.registerForm.get(['passwordsForm', 'password']);
+  }
+
+  get confirmPassword(): AbstractControl | null {
+    return this.registerForm.get(['passwordsForm', 'confirmPassword']);
+  }
+
+  onSubmit() {}
 
   passwordsMatch(controlName: string, matchingControlName: string) {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -75,9 +82,9 @@ export class RegisterComponent implements OnInit {
         return null;
       }
 
-      if (input.value !== matchingInput.value) {
-        matchingInput.setErrors({ confirmedValidator: true });
-        return { confirmedValidator: true };
+      if (input.value !== matchingInput.value || input.errors) {
+        matchingInput.setErrors({ passwordsMatch: true });
+        return { passwordsMatch: true };
       } else {
         matchingInput.setErrors(null);
         return null;
