@@ -24,7 +24,7 @@ export class SigninComponent implements OnInit {
 
   ngOnInit(): void {
     this.signForm = this.formBuilder.group({
-      email: [this.user.email, [Validators.required]],
+      email: [this.user.email, [Validators.required, Validators.email]],
       password: [this.user.password, [Validators.required]],
     });
   }
@@ -37,5 +37,7 @@ export class SigninComponent implements OnInit {
     return this.signForm.get('password');
   }
 
-  onSubmit() {}
+  onSubmit() {
+    this.submitted = true;
+  }
 }

@@ -6,18 +6,34 @@
         type="email"
         autocomplete="email"
         class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && email?.errors }"
         placeholder="Email"
         formControlName="email"
       />
+      <div class="invalid-feedback">
+        <div *ngIf="submitted && email?.errors?.required">
+          This field is required
+        </div>
+        <div *ngIf="submitted && email?.errors?.email">
+          Invalid email address
+        </div>
+      </div>
     </div>
     <div class="form-group">
       <input
         type="password"
         autocomplete="current-password"
         class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && password?.errors }"
         placeholder="Password"
         formControlName="password"
       />
+      <div
+        class="invalid-feedback"
+        *ngIf="submitted && email?.errors?.required"
+      >
+        This field is required
+      </div>
     </div>
     <button class="btn btn-primary w-100 btn-block">Sign In</button>
     <div class="bottom-links">
