@@ -16,11 +16,9 @@ import { User } from 'src/app/models/user/user';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   newUser: User;
-  submitted: boolean;
 
   constructor(private formBuilder: FormBuilder) {
     this.newUser = new User('', '', '', '');
-    this.submitted = false;
   }
 
   ngOnInit(): void {

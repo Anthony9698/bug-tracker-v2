@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { User } from 'src/app/models/user/user';
 
 @Component({
@@ -10,19 +15,27 @@ import { User } from 'src/app/models/user/user';
 export class SigninComponent implements OnInit {
   signForm: FormGroup;
   user: User;
+  submitted: boolean;
 
-  constructor() {
+  constructor(private formBuilder: FormBuilder) {
     this.user = new User('', '', '', '');
+    this.submitted = false;
   }
 
   ngOnInit(): void {
-    this.signForm = new FormGroup({
-      email: new FormControl(this.user.email),
-      password: new FormControl(this.user.password),
+    this.signForm = this.formBuilder.group({
+      email: [this.user.email, [Validators.required]],
+      password: [this.user.password, [Validators.required]],
     });
   }
 
-  onSubmit() {
-    console.log(this.signForm.value);
+  get email(): AbstractControl | null {
+    return this.signForm.get('email');
   }
+
+  get password(): AbstractControl | null {
+    return this.signForm.get('password');
+  }
+
+  onSubmit() {}
 }
