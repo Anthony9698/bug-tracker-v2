@@ -5,8 +5,6 @@ WORKDIR /app
 COPY package.json .
 
 RUN npm install
-RUN npm install bootstrap
-RUN npm install bootswatch
 
 COPY . .
 

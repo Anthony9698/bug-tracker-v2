@@ -79,3 +79,5 @@ app/typings
 app/.DS_Store
 app/Thumbs.db
 
+docker-compose.sample*
+
