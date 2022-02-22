@@ -10,13 +10,16 @@ services:
     stdin_open: true
     volumes:
       - ./app:/app
-      - /app/node_modules # do not try to map host modules against container
+      - /app/node_modules
     ports:
       - 4200:4200
     depends_on:
       - server
   server:
     container_name: server
+    depends_on:
+      db:
+        condition: service_healthy
     build:
       context: ./server
       dockerfile: Dockerfile.dev
@@ -25,16 +28,35 @@ services:
       - /tmp
     ports:
       - 8000:8080
-    depends_on:
-      - db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/compose-postgres
-      - SPRING_DATASOURCE_USERNAME=compose-postgres
-      - SPRING_DATASOURCE_PASSWORD=compose-postgres
+      - SPRING_DEVTOOLS_REMOTE_SECRET=mysecret
+      - SPRING_DATASOURCE_DRIVER-CLASS-NAME=org.postgresql.Driver
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=admin
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JAP_DATABASE-PLATFORM=org.hibernate.dialect.PostgreSQLDialect
   db:
     image: postgres:13.1-alpine
     container_name: db
+    restart: always
     environment:
-      - POSTGRES_USER=compose-postgres
-      - POSTGRES_PASSWORD=compose-postgres
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: always
+    ports:
+      - 5050:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: anthonyviera4@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: admin

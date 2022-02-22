@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class GreetingController {
     @GetMapping
     ResponseEntity<?> getGreeting() {
-        return new ResponseEntity<>("Live Reload Works woo oooooo", HttpStatus.OK);
+        return new ResponseEntity<>("Live Reload oo", HttpStatus.OK);
     }
 }
