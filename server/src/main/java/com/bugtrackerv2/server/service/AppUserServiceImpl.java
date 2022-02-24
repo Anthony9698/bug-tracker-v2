@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -25,10 +26,12 @@ import java.util.List;
 public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     private final AppUserRepo appUserRepo;
     private final RoleRepo roleRepo;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public AppUser saveAppUser(AppUser appUser) {
         log.info("Saving new user {} to the database", appUser.getEmail());
+        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
         return appUserRepo.save(appUser);
     }
 
