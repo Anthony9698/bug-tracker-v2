@@ -18,20 +18,20 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 
-@Configuration
-@EnableWebSecurity
-@RequiredArgsConstructor
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private final UserDetailsService userDetailsService;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+@Configuration // BRINGS INTO SPRING CONTEXT, GETS EXECUTED ON STARTUP
+@EnableWebSecurity // NEEDED TO CUSTOMIZE SPRING SECURITY
+@RequiredArgsConstructor // INJECTS SPRING BEANS
+public class SecurityConfig extends WebSecurityConfigurerAdapter { // ADAPTER NEEDED TO OVERRIDE BOTH ITS CONFIG METHODS
+    private final UserDetailsService userDetailsService; // CORE INTERFACE THAT LOADS USER SPECIFIC DATA NOTE: IMPL CLASS IS AppUserServiceImpl
+    private final BCryptPasswordEncoder bCryptPasswordEncoder; // PASSWORD ENCODING SCHEMA
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception { // CONFIGURES THE AUTHENTICATION MANAGER W/ CORRECT PROVIDER
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder); // AND PASSWORD ENCODING SCHEMA
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(HttpSecurity http) throws Exception { // CONFIGURES WEB SECURITY (PUBLIC URLS, PRIVATE URLS, AUTHORIZATION, etc.)
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
         customAuthenticationFilter.setFilterProcessesUrl("/api/login");
         http.csrf().disable();

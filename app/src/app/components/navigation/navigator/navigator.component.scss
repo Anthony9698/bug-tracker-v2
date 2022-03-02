@@ -1,0 +1,18 @@
+ul {
+  border: 1px solid red;
+  height: 100vh;
+  background-color: var(--bs-white);
+}
+
+li {
+  padding: 20px 25px;
+  border: none;
+
+  div {
+    border: 1px solid black;
+    display: flex;
+
+    img {
+    }
+  }
+}

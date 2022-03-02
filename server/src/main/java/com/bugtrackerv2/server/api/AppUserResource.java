@@ -61,6 +61,8 @@ public class AppUserResource {
 
     @GetMapping("/token/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+
         String authorizationHeader = request.getHeader(AUTHORIZATION);
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             try {
@@ -69,6 +71,7 @@ public class AppUserResource {
                 JWTVerifier verifier = JWT.require(algorithm).build();
                 DecodedJWT decodedJWT = verifier.verify(refresh_token);
                 String email = decodedJWT.getSubject();
+
                 AppUser appUser = appUserService.getAppUser(email);
                 String access_token = JWT.create()
                         .withSubject(appUser.getEmail())
