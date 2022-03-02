@@ -4,13 +4,31 @@ ul {
   border-radius: 0px;
 }
 
+.greeting {
+  font-size: 2rem;
+  border-bottom: 1px solid var(--bs-gray-300);
+}
+
 li {
   width: 250px;
-  padding: 20px;
   border: none;
+  user-select: none;
+
+  &:hover {
+    div:not(.link-active) {
+      background-color: var(--bs-gray-200);
+      cursor: pointer;
+    }
+  }
+
+  .link-active {
+    background-color: var(--bs-info);
+    color: var(--bs-white);
+  }
 
   div {
     display: flex;
+    padding: 15px 15px;
     justify-content: space-between;
     align-items: center;
 
