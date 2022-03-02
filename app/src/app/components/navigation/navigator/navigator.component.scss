@@ -1,18 +1,26 @@
 ul {
-  border: 1px solid red;
   height: 100vh;
   background-color: var(--bs-white);
+  border-radius: 0px;
 }
 
 li {
-  padding: 20px 25px;
+  width: 250px;
+  padding: 20px;
   border: none;
 
   div {
-    border: 1px solid black;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     img {
+      width: 20px;
+      height: 20px;
+    }
+
+    span {
+      width: 80%;
     }
   }
 }
