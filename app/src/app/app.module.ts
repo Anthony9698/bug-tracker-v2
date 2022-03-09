@@ -14,9 +14,10 @@ import { ManageProjectUsersComponent } from './components/layout/manage-project-
 import { MyProjectsComponent } from './components/layout/my-projects/my-projects.component';
 import { MyTicketsComponent } from './components/layout/my-tickets/my-tickets.component';
 import { ProfileComponent } from './components/layout/profile/profile.component';
+import { BannerComponent } from './components/navigation/banner/banner.component';
 
 @NgModule({
-  declarations: [AppComponent, SigninComponent, RegisterComponent, DashboardComponent, NavigatorComponent, LayoutComponent, ManageProductRolesComponent, ManageProjectUsersComponent, MyProjectsComponent, MyTicketsComponent, ProfileComponent],
+  declarations: [AppComponent, SigninComponent, RegisterComponent, DashboardComponent, NavigatorComponent, LayoutComponent, ManageProductRolesComponent, ManageProjectUsersComponent, MyProjectsComponent, MyTicketsComponent, ProfileComponent, BannerComponent],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent],

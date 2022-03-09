@@ -1,0 +1,42 @@
+nav {
+  padding: 8px 32px;
+  display: flex;
+  align-items: center;
+}
+
+.logged-in-as {
+  font-size: 1.25rem;
+  flex: 6;
+
+  span {
+    font-weight: 400;
+  }
+}
+
+.items {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+  font-size: 0.9625rem;
+
+  div {
+    border: none;
+    background-color: transparent;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &:hover {
+      background-color: var(--bs-gray-200);
+      cursor: pointer;
+    }
+
+    img {
+      width: 20px;
+      height: 20px;
+      margin-left: 8px;
+      margin-right: 8px;
+    }
+  }
+}
