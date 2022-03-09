@@ -5,4 +5,10 @@
 
 .content {
   flex: 1;
+
+  .router {
+    padding: 32px;
+    height: calc(100% - 55.11px);
+    background-color: var(--bs-gray-300);
+  }
 }
