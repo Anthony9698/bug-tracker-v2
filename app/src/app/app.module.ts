@@ -9,8 +9,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavigatorComponent } from './components/navigation/navigator/navigator.component';
 import { LayoutComponent } from './components/layout/layout.component';
-import { MyProjectsComponent } from './components/layout/my-projects/my-projects.component';
-import { MyTicketsComponent } from './components/layout/my-tickets/my-tickets.component';
+import { ProjectsComponent } from './components/projects/projects.component';
+import { TicketsComponent } from './components/tickets/tickets.component';
 import { BannerComponent } from './components/navigation/banner/banner.component';
 
 @NgModule({
@@ -21,8 +21,8 @@ import { BannerComponent } from './components/navigation/banner/banner.component
     DashboardComponent,
     NavigatorComponent,
     LayoutComponent,
-    MyProjectsComponent,
-    MyTicketsComponent,
+    ProjectsComponent,
+    TicketsComponent,
     BannerComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],

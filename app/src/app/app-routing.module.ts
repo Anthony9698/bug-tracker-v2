@@ -4,8 +4,8 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { SigninComponent } from './components/auth/signin/signin.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LayoutComponent } from './components/layout/layout.component';
-import { MyProjectsComponent } from './components/layout/my-projects/my-projects.component';
-import { MyTicketsComponent } from './components/layout/my-tickets/my-tickets.component';
+import { ProjectsComponent } from './components/projects/projects.component';
+import { TicketsComponent } from './components/tickets/tickets.component';
 
 const routes: Routes = [
   {
@@ -25,12 +25,12 @@ const routes: Routes = [
         component: DashboardComponent,
       },
       {
-        path: 'my-projects',
-        component: MyProjectsComponent,
+        path: 'projects',
+        component: ProjectsComponent,
       },
       {
-        path: 'my-tickets',
-        component: MyTicketsComponent,
+        path: 'tickets',
+        component: TicketsComponent,
       },
       {
         path: '',
