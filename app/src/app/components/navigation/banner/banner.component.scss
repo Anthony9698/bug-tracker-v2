@@ -19,13 +19,13 @@ nav {
   flex: 1;
   font-size: 0.9625rem;
 
-  div {
-    border: none;
+  .item {
     background-color: transparent;
     padding: 8px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
 
     &:hover {
       background-color: var(--bs-gray-200);
@@ -37,6 +37,33 @@ nav {
       height: 20px;
       margin-left: 8px;
       margin-right: 8px;
+      position: relative;
     }
+  }
+}
+
+.img-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+
+  .count {
+    background-color: red;
+    color: var(--bs-white);
+    font-weight: 500;
+    display: flex;
+    padding: 2px;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: 16px;
+    position: absolute;
+    font-size: 0.9625rem;
+    border-radius: 2px;
+    top: 12px;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
   }
 }
