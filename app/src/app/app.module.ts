@@ -12,6 +12,8 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { TicketsComponent } from './components/tickets/tickets.component';
 import { BannerComponent } from './components/navigation/banner/banner.component';
+import { TableComponent } from './components/ui/table/table.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -24,8 +26,9 @@ import { BannerComponent } from './components/navigation/banner/banner.component
     ProjectsComponent,
     TicketsComponent,
     BannerComponent,
+    TableComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
+  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, BrowserAnimationsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
