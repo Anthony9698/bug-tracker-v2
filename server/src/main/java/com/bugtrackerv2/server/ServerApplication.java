@@ -23,22 +23,12 @@ public class ServerApplication {
         return new BCryptPasswordEncoder();
     }
 
-//    @Bean
-//    CommandLineRunner run(AppUserService appUserService) {
-//        return args -> {
-//            appUserService.saveRole(new Role(null, "ROLE_USER"));
-//            appUserService.saveRole(new Role(null, "ROLE_MANAGER"));
-//            appUserService.saveRole(new Role(null, "ROLE_ADMIN"));
-//            appUserService.saveRole(new Role(null, "ROLE_SUPER_ADMIN"));
-//            appUserService.saveAppUser(new AppUser(null, "anthony", "viera", "a@gmail.com", "1234", new HashSet<>()));
-//            appUserService.saveAppUser(new AppUser(null, "will", "smith", "ws@gmail.com", "1234", new HashSet<>()));
-//            appUserService.saveAppUser(new AppUser(null, "john", "trav", "jt@gmail.com", "1234", new HashSet<>()));
-//            appUserService.saveAppUser(new AppUser(null, "mitch", "conner", "mc@gmail.com", "1234", new HashSet<>()));
-//
-//            appUserService.addRoleToUser("a@gmail.com", "ROLE_ADMIN");
-//            appUserService.addRoleToUser("jt@gmail.com", "ROLE_USER");
-//            appUserService.addRoleToUser("jt@gmail.com", "ROLE_SUPER_ADMIN");
-//            appUserService.addRoleToUser("mc@gmail.com", "ROLE_MANAGER");
-//        };
-//    }
+    @Bean
+    CommandLineRunner run(AppUserService appUserService) {
+        return args -> {
+            appUserService.saveRole(new Role("ADMIN"));
+            appUserService.saveAppUser(new AppUser("anthony", "viera", "a@gmail.com", "1234"));
+            appUserService.addRoleToUser("a@gmail.com", "ADMIN");
+        };
+    }
 }
