@@ -2,6 +2,8 @@ nav {
   padding: 8px 32px;
   display: flex;
   align-items: center;
+  background-color: var(--bs-white);
+  border-left: 2px solid var(--bs-gray-200);
 }
 
 .logged-in-as {
@@ -49,7 +51,7 @@ nav {
   position: relative;
 
   .count {
-    background-color: red;
+    background-color: var(--bs-red);
     color: var(--bs-white);
     font-weight: 500;
     display: flex;

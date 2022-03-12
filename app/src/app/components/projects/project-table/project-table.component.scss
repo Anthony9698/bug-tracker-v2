@@ -1,0 +1,54 @@
+.data-table {
+  margin: 0 auto;
+  max-width: 1200px;
+
+  table,
+  .title {
+    width: 100%;
+  }
+
+  .title {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--bs-white);
+    padding: 12px 24px;
+    border-bottom: 2px solid var(--bs-gray-200);
+
+    div {
+      font-size: 1.1rem;
+      font-weight: 400;
+    }
+
+    button {
+      padding: 3px 6px;
+      border-radius: 4px;
+    }
+  }
+}
+
+table {
+  .header {
+    background-color: var(--bs-light);
+    th {
+      font-size: 14px;
+    }
+  }
+
+  li {
+    list-style: none;
+  }
+
+  .mat-column-name {
+    width: 20%;
+  }
+  .mat-column-description {
+    width: 50%;
+  }
+
+  .mat-column-contributors {
+    width: 20%;
+  }
+}
