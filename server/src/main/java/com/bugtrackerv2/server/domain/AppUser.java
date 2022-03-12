@@ -5,16 +5,15 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,8 +22,20 @@ public class AppUser {
     private String lastName;
     private String email;
     private String password;
-    @ManyToMany(fetch = FetchType.EAGER) // load all the roles when loading users
-    private Collection<Role> roles = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @ToString.Exclude
+    private Set<Role> roles = new HashSet<>();
+
+    public AppUser(String firstName, String lastName, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -3,23 +3,28 @@ package com.bugtrackerv2.server.domain;
 import lombok.*;
 import org.hibernate.Hibernate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+    @ManyToMany(mappedBy = "roles")
+    @ToString.Exclude
+    Set<AppUser> users = new HashSet<>();
+
+    public Role(String name) {
+        this.name = name;
+    }
 
     @Override
     public boolean equals(Object o) {
