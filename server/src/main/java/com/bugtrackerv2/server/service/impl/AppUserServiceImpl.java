@@ -2,6 +2,8 @@ package com.bugtrackerv2.server.service.impl;
 
 import com.bugtrackerv2.server.domain.AppUser;
 import com.bugtrackerv2.server.domain.Role;
+import com.bugtrackerv2.server.mapstruct.dtos.user.AppUserAllDto;
+import com.bugtrackerv2.server.mapstruct.mappers.user.AppUserMapper;
 import com.bugtrackerv2.server.repo.AppUserRepo;
 import com.bugtrackerv2.server.repo.RoleRepo;
 import com.bugtrackerv2.server.service.AppUserService;
@@ -27,6 +29,7 @@ import java.util.Set;
 @Slf4j
 public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     private final AppUserRepo appUserRepo;
+    private final AppUserMapper appUserMapper;
     private final RoleRepo roleRepo;
     private final PasswordEncoder passwordEncoder;
 
@@ -53,9 +56,9 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     }
 
     @Override
-    public List<AppUser> getAppUsers() {
+    public List<AppUserAllDto> getAllAppUsers() {
         log.info("Fetching all users");
-        return appUserRepo.findAll();
+        return appUserMapper.appUserToAppUserAllDtos(appUserRepo.findAll());
     }
 
     @Override

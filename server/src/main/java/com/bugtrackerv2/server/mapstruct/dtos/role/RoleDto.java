@@ -1,4 +1,4 @@
-package com.bugtrackerv2.server.mapstruct.dtos.roles;
+package com.bugtrackerv2.server.mapstruct.dtos.role;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
