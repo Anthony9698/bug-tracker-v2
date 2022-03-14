@@ -1,12 +1,13 @@
 package com.bugtrackerv2.server.domain;
 
-import lombok.*;
-import org.hibernate.Hibernate;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -18,9 +19,6 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    @ManyToMany(mappedBy = "roles")
-    @ToString.Exclude
-    Set<AppUser> users = new HashSet<>();
 
     public Role(String name) {
         this.name = name;
@@ -29,13 +27,13 @@ public class Role {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Role role = (Role) o;
-        return id != null && Objects.equals(id, role.id);
+        return Objects.equals(name, role.name);
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return Objects.hash(name);
     }
 }

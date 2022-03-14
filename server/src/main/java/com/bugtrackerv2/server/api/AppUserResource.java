@@ -19,10 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
@@ -41,28 +38,20 @@ public class AppUserResource {
         return ResponseEntity.ok().body(appUserService.getAppUsers());
     }
 
-    @PostMapping("/user/save")
-    public ResponseEntity<AppUser> saveUser(@RequestBody AppUser appUser) {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toUriString());
-        return ResponseEntity.created(uri).body(appUserService.saveAppUser(appUser));
+    @PostMapping("/users")
+    public ResponseEntity<AppUser> registerAppUser(@RequestBody AppUser appUser) {
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/users/").toUriString());
+        return ResponseEntity.created(uri).body(appUserService.addAppUser(appUser));
     }
 
-    @PostMapping("/role/save")
-    public ResponseEntity<Role> saveRole(@RequestBody Role role) {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/role/save").toUriString());
-        return ResponseEntity.created(uri).body(appUserService.saveRole(role));
-    }
-
-    @PostMapping("/role/addtouser")
-    public ResponseEntity<?> addRoleToUser(@RequestBody RoleToUserForm form) {
-        appUserService.addRoleToUser(form.getEmail(), form.getRoleName());
-        return ResponseEntity.ok().build();
+    @PostMapping("/users/{email}/roles")
+    public ResponseEntity<Set<Role>> addRoleToAppUser(@PathVariable("email") String email, @RequestBody Role role) {
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/users/" + email + "/roles").toUriString());
+        return ResponseEntity.created(uri).body(appUserService.addRoleToAppUser(email, role.getName()));
     }
 
     @GetMapping("/token/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-
         String authorizationHeader = request.getHeader(AUTHORIZATION);
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             try {
@@ -97,10 +86,4 @@ public class AppUserResource {
             throw new RuntimeException("Refresh token is missing");
         }
     }
-}
-
-@Data
-class RoleToUserForm {
-    private String email;
-    private String roleName;
 }

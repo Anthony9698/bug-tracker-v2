@@ -1,8 +1,10 @@
 package com.bugtrackerv2.server.domain;
 
 
-import lombok.*;
-import org.hibernate.Hibernate;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -22,7 +24,7 @@ public class AppUser {
     private String lastName;
     private String email;
     private String password;
-    @ManyToMany
+    @ManyToMany(cascade= CascadeType.ALL)
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -37,16 +39,24 @@ public class AppUser {
         this.password = password;
     }
 
+    public void addRole(Role role) {
+        this.roles.add(role);
+    }
+
+    public void removeRole(Role role) {
+        this.roles.remove(role);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        AppUser appUser = (AppUser) o;
-        return id != null && Objects.equals(id, appUser.id);
+        if (o == null || getClass() != o.getClass()) return false;
+        AppUser user = (AppUser) o;
+        return Objects.equals(email, user.email);
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return Objects.hash(email);
     }
 }

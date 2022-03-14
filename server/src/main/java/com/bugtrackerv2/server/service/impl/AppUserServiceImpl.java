@@ -1,9 +1,10 @@
-package com.bugtrackerv2.server.service;
+package com.bugtrackerv2.server.service.impl;
 
 import com.bugtrackerv2.server.domain.AppUser;
 import com.bugtrackerv2.server.domain.Role;
 import com.bugtrackerv2.server.repo.AppUserRepo;
 import com.bugtrackerv2.server.repo.RoleRepo;
+import com.bugtrackerv2.server.service.AppUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,6 +19,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -29,24 +31,19 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public AppUser saveAppUser(AppUser appUser) {
+    public AppUser addAppUser(AppUser appUser) {
         log.info("Saving new user {} to the database", appUser.getEmail());
         appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
         return appUserRepo.save(appUser);
     }
 
     @Override
-    public Role saveRole(Role role) {
-        log.info("Saving new role {} to the database", role.getName());
-        return roleRepo.save(role);
-    }
-
-    @Override
-    public void addRoleToUser(String email, String roleName) {
+    public Set<Role> addRoleToAppUser(String email, String roleName) {
         log.info("Adding role {} to user {}", roleName, email);
         AppUser appUser = appUserRepo.findByEmail(email);
         Role role = roleRepo.findByName(roleName);
-        appUser.getRoles().add(role);
+        appUser.addRole(role);
+        return appUser.getRoles();
     }
 
     @Override
