@@ -3,12 +3,15 @@ package com.bugtrackerv2.server.service.impl;
 import com.bugtrackerv2.server.domain.AppUser;
 import com.bugtrackerv2.server.domain.Role;
 import com.bugtrackerv2.server.mapstruct.dtos.user.AppUserAllDto;
+import com.bugtrackerv2.server.mapstruct.dtos.user.AppUserDto;
+import com.bugtrackerv2.server.mapstruct.dtos.user.AppUserPostDto;
 import com.bugtrackerv2.server.mapstruct.mappers.user.AppUserMapper;
 import com.bugtrackerv2.server.repo.AppUserRepo;
 import com.bugtrackerv2.server.repo.RoleRepo;
 import com.bugtrackerv2.server.service.AppUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,13 +26,13 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+
 @Service
 @RequiredArgsConstructor
 @Transactional
 @Slf4j
 public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     private final AppUserRepo appUserRepo;
-    private final AppUserMapper appUserMapper;
     private final RoleRepo roleRepo;
     private final PasswordEncoder passwordEncoder;
 
@@ -46,7 +49,7 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
         AppUser appUser = appUserRepo.findByEmail(email);
         Role role = roleRepo.findByName(roleName);
         appUser.addRole(role);
-        return appUser.getRoles();
+        return appUserRepo.save(appUser).getRoles();
     }
 
     @Override
@@ -56,9 +59,9 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     }
 
     @Override
-    public List<AppUserAllDto> getAllAppUsers() {
+    public List<AppUser> getAllAppUsers() {
         log.info("Fetching all users");
-        return appUserMapper.appUserToAppUserAllDtos(appUserRepo.findAll());
+        return appUserRepo.findAll();
     }
 
     @Override

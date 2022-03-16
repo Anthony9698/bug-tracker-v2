@@ -1,4 +1,4 @@
-package com.bugtrackerv2.server.api;
+package com.bugtrackerv2.server.resource;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -7,10 +7,11 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.bugtrackerv2.server.domain.AppUser;
 import com.bugtrackerv2.server.domain.Role;
 import com.bugtrackerv2.server.mapstruct.dtos.user.AppUserAllDto;
+import com.bugtrackerv2.server.mapstruct.dtos.user.AppUserDto;
+import com.bugtrackerv2.server.mapstruct.dtos.user.AppUserPostDto;
 import com.bugtrackerv2.server.mapstruct.mappers.user.AppUserMapper;
 import com.bugtrackerv2.server.service.AppUserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URI;
 import java.util.*;
@@ -34,21 +36,25 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Slf4j
 public class AppUserResource {
     private final AppUserService appUserService;
+    private final AppUserMapper appUserMapper;
 
     @GetMapping
     public ResponseEntity<List<AppUserAllDto>> getAppUsers() {
-        return ResponseEntity.ok().body(appUserService.getAllAppUsers());
+        List<AppUserAllDto> appUserAllDto = appUserMapper.appUserToAppUserAllDtos(appUserService.getAllAppUsers());
+        return ResponseEntity.ok().body(appUserAllDto);
     }
 
     @PostMapping
-    public ResponseEntity<AppUser> registerAppUser(@RequestBody AppUser appUser) {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/users/").toUriString());
-        return ResponseEntity.created(uri).body(appUserService.addAppUser(appUser));
+    public ResponseEntity<AppUserDto> registerAppUser(@RequestBody @Valid AppUserPostDto appUserPostDto) {
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/users").toUriString());
+        AppUser newUser = appUserMapper.appUserPostDtoToAppUser(appUserPostDto);
+        AppUserDto appUserDto = appUserMapper.appUserToAppUserDto(appUserService.addAppUser(newUser));
+        return ResponseEntity.created(uri).body(appUserDto);
     }
 
     @PostMapping("/{email}/roles")
     public ResponseEntity<Set<Role>> addRoleToAppUser(@PathVariable("email") String email, @RequestBody Role role) {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/users/" + email + "/roles").toUriString());
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/users/" + email + "/roles").toUriString());
         return ResponseEntity.created(uri).body(appUserService.addRoleToAppUser(email, role.getName()));
     }
 

@@ -13,9 +13,9 @@ public class DataBootStrap {
     @Bean
     CommandLineRunner run(AppUserService appUserService, RoleService roleService) {
         return args -> {
-            roleService.addRole(new Role("ADMIN"));
+            roleService.addRole(new Role("admin"));
             appUserService.addAppUser(new AppUser("anthony", "viera", "a@gmail.com", "1234"));
-            appUserService.addRoleToAppUser("a@gmail.com", "ADMIN");
+            appUserService.addRoleToAppUser("a@gmail.com", "admin");
         };
     }
 }

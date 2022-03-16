@@ -12,9 +12,6 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 public class AppUserPostDto {
-    @JsonProperty("id")
-    private Long id;
-
     @NotBlank
     @Size(min = 2, max = 32, message = "First name must be between 2 and 32 characters long")
     @JsonProperty("firstName")
@@ -31,6 +28,7 @@ public class AppUserPostDto {
     private String email;
 
     @NotNull
+    @Size(min = 8, max = 25, message = "Password must be between 8 and 25 characters long")
     @JsonProperty("password")
     private String password;
 }

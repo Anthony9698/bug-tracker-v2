@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AppUserGetDto {
+public class AppUserDto {
     @JsonProperty("id")
     private Long id;
 

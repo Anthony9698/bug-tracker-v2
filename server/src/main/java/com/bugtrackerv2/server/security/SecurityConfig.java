@@ -33,13 +33,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // ADAPTER NE
     @Override
     protected void configure(HttpSecurity http) throws Exception { // CONFIGURES WEB SECURITY (PUBLIC URLS, PRIVATE URLS, AUTHORIZATION, etc.)
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
-        customAuthenticationFilter.setFilterProcessesUrl("/api/login");
+        customAuthenticationFilter.setFilterProcessesUrl("/login");
         http.csrf().disable();
         http.headers().frameOptions().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().antMatchers("/api/login/**", "/api/token/refresh/**", "/h2-console/**").permitAll();
-//        http.authorizeRequests().antMatchers(GET, "/api/user/**").hasAnyAuthority("USER");
-        http.authorizeRequests().antMatchers(POST, "/api/users/**").hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers("/login/**", "/token/refresh/**", "/h2-console/**").permitAll();
+//        http.authorizeRequests().antMatchers(GET, "/user/**").hasAnyAuthority("USER");
+//        http.authorizeRequests().antMatchers(POST, "/users").permitAll();
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
