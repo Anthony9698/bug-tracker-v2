@@ -6,7 +6,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -19,6 +21,9 @@ public class Role {
     private Long id;
     @Enumerated(EnumType.STRING)
     private ERole name;
+    @ManyToMany(mappedBy = "roles")
+    @ToString.Exclude
+    private Set<User> users = new HashSet<>();
 
     public Role(ERole name) {
         this.name = name;
