@@ -6,7 +6,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Objects;
 
 @Entity
@@ -18,9 +17,10 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private ERole name;
 
-    public Role(String name) {
+    public Role(ERole name) {
         this.name = name;
     }
 

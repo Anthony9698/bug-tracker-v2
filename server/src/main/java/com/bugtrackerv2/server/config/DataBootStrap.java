@@ -1,9 +1,10 @@
 package com.bugtrackerv2.server.config;
 
-import com.bugtrackerv2.server.domain.AppUser;
+import com.bugtrackerv2.server.domain.ERole;
 import com.bugtrackerv2.server.domain.Role;
-import com.bugtrackerv2.server.service.AppUserService;
+import com.bugtrackerv2.server.domain.User;
 import com.bugtrackerv2.server.service.RoleService;
+import com.bugtrackerv2.server.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,11 +12,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DataBootStrap {
     @Bean
-    CommandLineRunner run(AppUserService appUserService, RoleService roleService) {
+    CommandLineRunner run(UserService userService, RoleService roleService) {
         return args -> {
-            roleService.addRole(new Role("admin"));
-            appUserService.addAppUser(new AppUser("anthony", "viera", "a@gmail.com", "1234"));
-            appUserService.addRoleToAppUser("a@gmail.com", "admin");
+            roleService.addRole(new Role(ERole.ROLE_USER));
+            roleService.addRole(new Role(ERole.ROLE_DEVELOPER));
+            roleService.addRole(new Role(ERole.ROLE_MANAGER));
+            roleService.addRole(new Role(ERole.ROLE_ADMIN));
         };
     }
 }

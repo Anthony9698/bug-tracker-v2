@@ -11,5 +11,5 @@ import org.springframework.test.context.junit4.SpringRunner;
 @AutoConfigureMockMvc
 @TestPropertySource(
         locations = "classpath:application-integrationtest.properties")
-public class AppUserRestControllerIntegrationTest {
+public class UserRestControllerIntegrationTest {
 }

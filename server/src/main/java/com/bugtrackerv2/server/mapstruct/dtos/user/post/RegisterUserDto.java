@@ -1,4 +1,4 @@
-package com.bugtrackerv2.server.mapstruct.dtos.user;
+package com.bugtrackerv2.server.mapstruct.dtos.user.post;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Setter
-public class AppUserPostDto {
+public class RegisterUserDto {
     @NotBlank
     @Size(min = 2, max = 32, message = "First name must be between 2 and 32 characters long")
     @JsonProperty("firstName")
@@ -22,6 +22,11 @@ public class AppUserPostDto {
     @JsonProperty("lastName")
     private String lastName;
 
+    @NotBlank
+    @Size(min = 5, max = 10, message = "Username must be between 5 and 10 characters long")
+    @JsonProperty("username")
+    protected String username;
+
     @Email
     @NotBlank
     @JsonProperty("email")
@@ -30,5 +35,5 @@ public class AppUserPostDto {
     @NotNull
     @Size(min = 8, max = 25, message = "Password must be between 8 and 25 characters long")
     @JsonProperty("password")
-    private String password;
+    protected String password;
 }

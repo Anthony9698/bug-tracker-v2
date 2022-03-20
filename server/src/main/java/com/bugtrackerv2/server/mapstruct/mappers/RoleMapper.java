@@ -1,4 +1,4 @@
-package com.bugtrackerv2.server.mapstruct.mappers.role;
+package com.bugtrackerv2.server.mapstruct.mappers;
 
 import com.bugtrackerv2.server.domain.Role;
 import com.bugtrackerv2.server.mapstruct.dtos.role.RoleDto;

@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-public class AppUserAllDto {
+public class UserAllDto {
     @JsonProperty("id")
     private Long id;
 
