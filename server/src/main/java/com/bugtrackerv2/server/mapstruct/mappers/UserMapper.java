@@ -3,7 +3,6 @@ package com.bugtrackerv2.server.mapstruct.mappers;
 import com.bugtrackerv2.server.domain.User;
 import com.bugtrackerv2.server.mapstruct.dtos.user.UserAllDto;
 import com.bugtrackerv2.server.mapstruct.dtos.user.UserDto;
-import com.bugtrackerv2.server.mapstruct.dtos.user.post.LoginUserDto;
 import com.bugtrackerv2.server.mapstruct.dtos.user.post.RegisterUserDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

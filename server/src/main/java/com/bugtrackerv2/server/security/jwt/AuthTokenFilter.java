@@ -1,7 +1,6 @@
 package com.bugtrackerv2.server.security.jwt;
 
 import com.bugtrackerv2.server.service.impl.UserDetailsServiceImpl;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

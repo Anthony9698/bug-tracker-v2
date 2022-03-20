@@ -1,6 +1,5 @@
 package com.bugtrackerv2.server.controllers;
 
-import com.bugtrackerv2.server.domain.User;
 import com.bugtrackerv2.server.mapstruct.dtos.user.post.LoginUserDto;
 import com.bugtrackerv2.server.mapstruct.dtos.user.post.RegisterUserDto;
 import com.bugtrackerv2.server.mapstruct.mappers.UserMapper;

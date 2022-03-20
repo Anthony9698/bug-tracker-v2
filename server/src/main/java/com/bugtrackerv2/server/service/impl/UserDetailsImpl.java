@@ -60,9 +60,13 @@ public class UserDetailsImpl implements UserDetails {
         return email;
     }
 
-    public String getFirstName() { return firstName; }
+    public String getFirstName() {
+        return firstName;
+    }
 
-    public String getLastName() { return lastName; }
+    public String getLastName() {
+        return lastName;
+    }
 
     @Override
     public String getPassword() {

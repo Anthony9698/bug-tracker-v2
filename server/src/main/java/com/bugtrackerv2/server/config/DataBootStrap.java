@@ -2,7 +2,6 @@ package com.bugtrackerv2.server.config;
 
 import com.bugtrackerv2.server.domain.ERole;
 import com.bugtrackerv2.server.domain.Role;
-import com.bugtrackerv2.server.domain.User;
 import com.bugtrackerv2.server.service.RoleService;
 import com.bugtrackerv2.server.service.UserService;
 import org.springframework.boot.CommandLineRunner;
