@@ -5,7 +5,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { User } from 'src/app/models/user/user';
+import { LoginUserDto } from 'src/app/models/user/auth/login-user-dto';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-signin',
@@ -13,31 +14,46 @@ import { User } from 'src/app/models/user/user';
   styleUrls: ['./signin.component.scss'],
 })
 export class SigninComponent implements OnInit {
-  signForm: FormGroup;
-  user: User;
+  loginForm: FormGroup;
   submitted: boolean;
 
-  constructor(private formBuilder: FormBuilder) {
-    this.user = new User('', '', '', '');
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService
+  ) {
     this.submitted = false;
   }
 
   ngOnInit(): void {
-    this.signForm = this.formBuilder.group({
-      email: [this.user.email, [Validators.required, Validators.email]],
-      password: [this.user.password, [Validators.required]],
+    this.loginForm = this.formBuilder.group({
+      username: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(10),
+        ],
+      ],
+      password: ['', [Validators.required]],
     });
   }
 
-  get email(): AbstractControl | null {
-    return this.signForm.get('email');
+  get username(): AbstractControl | null {
+    return this.loginForm.get('username');
   }
 
   get password(): AbstractControl | null {
-    return this.signForm.get('password');
+    return this.loginForm.get('password');
   }
 
   onSubmit() {
     this.submitted = true;
+    if (this.loginForm.valid) {
+      let loginUserDto: LoginUserDto = new LoginUserDto(
+        this.loginForm.get('username')?.value,
+        this.loginForm.get('password')?.value
+      );
+      this.authService.login(loginUserDto).subscribe((res) => console.log(res));
+    }
   }
 }

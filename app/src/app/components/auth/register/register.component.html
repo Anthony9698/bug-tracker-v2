@@ -48,6 +48,32 @@
     </div>
     <div class="form-group">
       <input
+        type="text"
+        autocomplete="username"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid':
+            (username?.dirty || username?.touched) && username?.errors,
+          'is-valid': username?.dirty && !username?.errors
+        }"
+        placeholder="Username"
+        formControlName="username"
+      />
+      <div
+        class="invalid-feedback"
+        *ngIf="username?.dirty || username?.touched"
+      >
+        <div *ngIf="username?.errors?.required">This field is required</div>
+        <div *ngIf="username?.errors?.minLength">
+          Username must be at least 2 characters long
+        </div>
+        <div *ngIf="username?.errors?.minLength">
+          Username must be at most 10 characters long
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <input
         type="email"
         autocomplete="email"
         class="form-control"

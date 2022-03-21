@@ -6,7 +6,7 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { User } from 'src/app/models/user/user';
+import { RegisterUserDto } from 'src/app/models/user/auth/register-user-dto';
 
 @Component({
   selector: 'app-register',
@@ -15,16 +15,22 @@ import { User } from 'src/app/models/user/user';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  newUser: User;
+  newUser: RegisterUserDto;
 
-  constructor(private formBuilder: FormBuilder) {
-    this.newUser = new User('', '', '', '');
-  }
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
       firstName: [this.newUser.firstName, [Validators.required]],
       lastName: [this.newUser.lastName, [Validators.required]],
+      username: [
+        this.newUser.username,
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(10),
+        ],
+      ],
       email: [this.newUser.email, [Validators.required, Validators.email]],
       passwordsForm: this.formBuilder.group(
         {
@@ -51,6 +57,10 @@ export class RegisterComponent implements OnInit {
 
   get lastName(): AbstractControl | null {
     return this.registerForm.get('lastName');
+  }
+
+  get username(): AbstractControl | null {
+    return this.registerForm.get('username');
   }
 
   get email(): AbstractControl | null {
