@@ -16,12 +16,14 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class SigninComponent implements OnInit {
   loginForm: FormGroup;
   submitted: boolean;
+  invalidCredentials: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService
   ) {
     this.submitted = false;
+    this.invalidCredentials = false;
   }
 
   ngOnInit(): void {
@@ -46,14 +48,17 @@ export class SigninComponent implements OnInit {
     return this.loginForm.get('password');
   }
 
-  onSubmit() {
+  onLogin() {
     this.submitted = true;
     if (this.loginForm.valid) {
       let loginUserDto: LoginUserDto = new LoginUserDto(
-        this.loginForm.get('username')?.value,
-        this.loginForm.get('password')?.value
+        this.username?.value,
+        this.password?.value
       );
-      this.authService.login(loginUserDto).subscribe((res) => console.log(res));
+      this.authService.login(loginUserDto).subscribe(
+        (res) => console.log(res),
+        (err) => (this.invalidCredentials = true)
+      );
     }
   }
 }

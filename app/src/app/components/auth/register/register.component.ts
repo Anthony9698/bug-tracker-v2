@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { RegisterUserDto } from 'src/app/models/user/auth/register-user-dto';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -15,27 +16,32 @@ import { RegisterUserDto } from 'src/app/models/user/auth/register-user-dto';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  newUser: RegisterUserDto;
+  submitted: boolean;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService
+  ) {
+    this.submitted = false;
+  }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
-      firstName: [this.newUser.firstName, [Validators.required]],
-      lastName: [this.newUser.lastName, [Validators.required]],
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
       username: [
-        this.newUser.username,
+        '',
         [
           Validators.required,
           Validators.minLength(2),
           Validators.maxLength(10),
         ],
       ],
-      email: [this.newUser.email, [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
       passwordsForm: this.formBuilder.group(
         {
           password: [
-            this.newUser.password,
+            '',
             [
               Validators.required,
               Validators.minLength(8),
@@ -75,7 +81,21 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.get(['passwordsForm', 'confirmPassword']);
   }
 
-  onSubmit() {}
+  onRegister() {
+    this.submitted = true;
+    if (this.registerForm.valid) {
+      let registerUserDto: RegisterUserDto = new RegisterUserDto(
+        this.firstName?.value,
+        this.lastName?.value,
+        this.username?.value,
+        this.email?.value,
+        this.password?.value
+      );
+      this.authService
+        .register(registerUserDto)
+        .subscribe((res) => console.log(res));
+    }
+  }
 
   passwordsMatch(controlName: string, matchingControlName: string) {
     return (control: AbstractControl): ValidationErrors | null => {

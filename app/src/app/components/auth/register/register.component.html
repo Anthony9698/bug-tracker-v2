@@ -1,5 +1,5 @@
 <div class="container">
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
     <h5 class="display-6 text-center">New Account</h5>
     <div class="form-group has-danger">
       <input
@@ -8,7 +8,8 @@
         class="form-control"
         [ngClass]="{
           'is-invalid':
-            (firstName?.dirty || firstName?.touched) && firstName?.errors,
+            (firstName?.dirty || firstName?.touched || submitted) &&
+            firstName?.errors,
           'is-valid': firstName?.dirty && !firstName?.errors
         }"
         placeholder="First Name"
@@ -17,7 +18,7 @@
       <div
         class="invalid-feedback"
         *ngIf="
-          (firstName?.dirty || firstName?.touched) &&
+          (firstName?.dirty || firstName?.touched || submitted) &&
           firstName?.errors?.required
         "
       >
@@ -31,7 +32,8 @@
         class="form-control"
         [ngClass]="{
           'is-invalid':
-            (lastName?.dirty || lastName?.touched) && lastName?.errors,
+            (lastName?.dirty || lastName?.touched || submitted) &&
+            lastName?.errors,
           'is-valid': lastName?.dirty && !lastName?.errors
         }"
         placeholder="Last Name"
@@ -40,7 +42,8 @@
       <div
         class="invalid-feedback"
         *ngIf="
-          (lastName?.dirty || lastName?.touched) && lastName?.errors?.required
+          (lastName?.dirty || lastName?.touched || submitted) &&
+          lastName?.errors?.required
         "
       >
         This field is required
@@ -53,7 +56,8 @@
         class="form-control"
         [ngClass]="{
           'is-invalid':
-            (username?.dirty || username?.touched) && username?.errors,
+            (username?.dirty || username?.touched || submitted) &&
+            username?.errors,
           'is-valid': username?.dirty && !username?.errors
         }"
         placeholder="Username"
@@ -61,13 +65,13 @@
       />
       <div
         class="invalid-feedback"
-        *ngIf="username?.dirty || username?.touched"
+        *ngIf="username?.dirty || username?.touched || submitted"
       >
         <div *ngIf="username?.errors?.required">This field is required</div>
-        <div *ngIf="username?.errors?.minLength">
+        <div *ngIf="username?.errors?.minlength">
           Username must be at least 2 characters long
         </div>
-        <div *ngIf="username?.errors?.minLength">
+        <div *ngIf="username?.errors?.maxlength">
           Username must be at most 10 characters long
         </div>
       </div>
@@ -78,13 +82,17 @@
         autocomplete="email"
         class="form-control"
         [ngClass]="{
-          'is-invalid': (email?.dirty || email?.touched) && email?.errors,
+          'is-invalid':
+            (email?.dirty || email?.touched || submitted) && email?.errors,
           'is-valid': email?.dirty && !email?.errors
         }"
         placeholder="Email"
         formControlName="email"
       />
-      <div class="invalid-feedback" *ngIf="email?.dirty || email?.touched">
+      <div
+        class="invalid-feedback"
+        *ngIf="email?.dirty || email?.touched || submitted"
+      >
         <div *ngIf="email?.errors?.required">This field is required</div>
         <div *ngIf="email?.errors?.email">Invalid email address</div>
       </div>
@@ -97,7 +105,8 @@
           class="form-control"
           [ngClass]="{
             'is-invalid':
-              (password?.dirty || password?.touched) && password?.errors,
+              (password?.dirty || password?.touched || submitted) &&
+              password?.errors,
             'is-valid': password?.dirty && !password?.errors
           }"
           placeholder="Password"
@@ -111,8 +120,10 @@
           class="form-control"
           [ngClass]="{
             'is-invalid':
-              (confirmPassword?.dirty || confirmPassword?.touched) &&
-              confirmPassword?.errors?.passwordsMatch,
+              (confirmPassword?.dirty ||
+                confirmPassword?.touched ||
+                submitted) &&
+              confirmPassword?.errors,
             'is-valid': confirmPassword?.dirty && !confirmPassword?.errors
           }"
           placeholder="Confirm Password"
@@ -120,7 +131,7 @@
         />
         <div
           class="invalid-feedback d-block"
-          *ngIf="password?.dirty || password?.touched"
+          *ngIf="password?.dirty || password?.touched || submitted"
         >
           <div *ngIf="password?.errors?.required">Password is required</div>
           <div *ngIf="password?.errors?.minlength">
@@ -132,7 +143,9 @@
         </div>
         <div
           class="invalid-feedback"
-          *ngIf="confirmPassword?.dirty || confirmPassword?.touched"
+          *ngIf="
+            confirmPassword?.dirty || confirmPassword?.touched || submitted
+          "
         >
           <div *ngIf="confirmPassword?.errors?.passwordsMatch">
             Passwords must match
