@@ -18,6 +18,7 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     const token = localStorage.getItem('token') || undefined;
+    console.log(this.jwtHelper.decodeToken(token));
     return !this.jwtHelper.isTokenExpired(token);
   }
 
@@ -26,6 +27,10 @@ export class AuthService {
       `${this.API_ENDPOINT}/signin`,
       loginUserDto
     );
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
   }
 
   register(registerUserDto: RegisterUserDto): Observable<any> {

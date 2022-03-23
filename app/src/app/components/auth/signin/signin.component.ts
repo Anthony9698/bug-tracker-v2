@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoginUserDto } from 'src/app/models/user/auth/login-user-dto';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
@@ -20,7 +21,8 @@ export class SigninComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.submitted = false;
     this.invalidCredentials = false;
@@ -56,7 +58,10 @@ export class SigninComponent implements OnInit {
         this.password?.value
       );
       this.authService.login(loginUserDto).subscribe(
-        (res) => console.log(res),
+        (res) => {
+          localStorage.setItem('token', res.token);
+          this.router.navigateByUrl('/dashboard');
+        },
         (err) => (this.invalidCredentials = true)
       );
     }
